@@ -1,20 +1,22 @@
 package com.rr.user;
 
 import java.util.Collection;
+import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.rr.reservation.Reservation;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.OneToMany;
+
 
 
 @Entity
@@ -25,12 +27,29 @@ public class User implements UserDetails{
 	private String username; 
 	private String password;
 	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@JsonManagedReference
+	private List<Reservation> reservations;
+	
 	
 	public User() {}
+
+	
+	public User(Integer id) {
+		this.id = id;
+	}
+
+
 	public User(String username, String password) {
 		this.username=username;
 		this.password=password;
 	}
+	public User(String username, String password, List<Reservation> reservations) {
+		this.username = username;
+		this.password = password;
+		this.reservations = reservations;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
@@ -69,5 +88,15 @@ public class User implements UserDetails{
 	        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 	        this.password= encoder.encode(this.password);
 	    }
+	  
+	  public List<Reservation> getReservations() {
+			return this.reservations;
+		}
+	  
+	  public void setReservations(List<Reservation> reservations) {
+			this.reservations=reservations;
+		}
+	
+	  
 
 }
