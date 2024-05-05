@@ -20,13 +20,12 @@ public class Restaurant {
 	private String name;
 	private Integer capacity;
 	private String description;
+	private Integer imgIndex;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-	@JsonManagedReference
 	private List<Menu> menus;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
-	@JsonManagedReference
 	private List<Reservation> reservations;
 	
 	public Restaurant() {}
@@ -35,7 +34,7 @@ public class Restaurant {
         this.id = id;
     }
 	
-	public Restaurant(Integer id,String name) {
+	public Restaurant(Integer id,String name,Integer imgIndex) {
 		this.id=id;
 		this.name= name;
 	}
@@ -90,6 +89,14 @@ public class Restaurant {
 		this.description = description;
 		this.menus = menus;
 		this.reservations = reservations;
+	}
+
+	public Integer getImgIndex() {
+		return imgIndex;
+	}
+
+	public void setImgIndex(Integer imgIndex) {
+		this.imgIndex = imgIndex;
 	}
 	
 }

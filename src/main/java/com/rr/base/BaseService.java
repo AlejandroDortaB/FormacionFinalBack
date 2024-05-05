@@ -25,9 +25,9 @@ public abstract class BaseService<E, R extends JpaRepository<E, Integer>> {
         return  ResponseEntity.status(HttpStatus.OK).body(repository.findById(id).orElse(null));
     }
 
-    public ResponseEntity<E> create(E entity) {
+    /* public ResponseEntity<E> create(E entity) {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(entity));
-    }
+    } */
 
     public ResponseEntity<String> update(Integer id, E entity) {
         Optional<E> optionalEntity = repository.findById(id);

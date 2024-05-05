@@ -29,10 +29,10 @@ public abstract class BaseController<E, S extends BaseService<E, ?>> {
         return service.getById(id);
     }
 
-    @PostMapping
+    /* @PostMapping
     public ResponseEntity<E> create(@RequestBody E entity) {
         return service.create(entity);
-    }
+    } */
 
     @PutMapping("/{id}")
     public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody E entity) {

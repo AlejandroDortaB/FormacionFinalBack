@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rr.restaurant.Restaurant;
 import com.rr.user.User;
 
@@ -23,11 +24,11 @@ public class Reservation {
 	private Integer numberPeople;
 	
 	@ManyToOne
-	@JsonBackReference
+	@JsonIgnore
 	private Restaurant restaurant;
 	
 	@ManyToOne
-	@JsonBackReference
+	@JsonIgnore
 	private User user;
 	
 	

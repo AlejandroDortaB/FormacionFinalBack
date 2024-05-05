@@ -3,6 +3,7 @@ package com.rr.menu;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.rr.restaurant.Restaurant;
 
 import jakarta.persistence.Entity;
@@ -15,10 +16,11 @@ public class Menu {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	private String name;
 	private List<String> foodPlates;
 
 	@ManyToOne
-	@JsonBackReference
+	@JsonIgnore
 	private Restaurant restaurant;
 	
 		
@@ -31,9 +33,10 @@ public class Menu {
 	}
 
 
-	public Menu(List<String> foodPlates, Restaurant restaurant) {
+	public Menu(String name,List<String> foodPlates, Restaurant restaurant) {
 		this.foodPlates = foodPlates;
 		this.restaurant = restaurant;
+		this.name = name;
 	}
 
 	public Integer getId() {
@@ -56,8 +59,14 @@ public class Menu {
 		this.restaurant=restaurant;
 	}
 
-	
 
-	
-	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 }

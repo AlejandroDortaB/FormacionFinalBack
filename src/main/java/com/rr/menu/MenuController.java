@@ -1,6 +1,9 @@
 package com.rr.menu;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +18,12 @@ public class MenuController extends BaseController<Menu, MenuServices> {
 
 	public MenuController(MenuServices service) {
 		super(service);
-		
 	}
+
+	@PostMapping
+    public ResponseEntity<Menu> create(@RequestBody MenuRequest entity) {
+		
+        return service.create(entity);
+    }
 
 }
