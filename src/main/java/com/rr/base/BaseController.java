@@ -1,6 +1,7 @@
 package com.rr.base;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +36,12 @@ public abstract class BaseController<E, S extends BaseService<E, ?>> {
     } */
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> update(@PathVariable Integer id, @RequestBody E entity) {
+    public ResponseEntity< Map<String, String>> update(@PathVariable Integer id, @RequestBody E entity) {
         return service.update(id, entity);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id) {
         return service.delete(id);
     }
 }

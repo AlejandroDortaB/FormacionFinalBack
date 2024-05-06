@@ -2,6 +2,7 @@ package com.rr.restaurant;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rr.menu.Menu;
 import com.rr.reservation.Reservation;
@@ -26,6 +27,7 @@ public class Restaurant {
 	private List<Menu> menus;
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
+	@JsonIgnore
 	private List<Reservation> reservations;
 	
 	public Restaurant() {}

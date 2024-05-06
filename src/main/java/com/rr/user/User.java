@@ -96,6 +96,12 @@ public class User implements UserDetails{
 	  public void setReservations(List<Reservation> reservations) {
 			this.reservations=reservations;
 		}
+
+
+	public Integer getId() {
+		return id;
+	}
+		
 	
 	  
 

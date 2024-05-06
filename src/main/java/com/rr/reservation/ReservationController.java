@@ -13,7 +13,7 @@ import com.rr.menu.MenuRequest;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1/reservation")
+@RequestMapping("reservation")
 public class ReservationController extends BaseController<Reservation, ReservationService>{
 
 	public ReservationController(ReservationService service) {

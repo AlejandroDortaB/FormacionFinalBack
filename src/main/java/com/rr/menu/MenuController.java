@@ -13,7 +13,7 @@ import com.rr.restaurant.RestaurantService;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/api/v1/menu")
+@RequestMapping("menu")
 public class MenuController extends BaseController<Menu, MenuServices> {
 
 	public MenuController(MenuServices service) {

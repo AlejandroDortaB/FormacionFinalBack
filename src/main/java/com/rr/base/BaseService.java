@@ -1,6 +1,8 @@
 package com.rr.base;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -29,20 +31,32 @@ public abstract class BaseService<E, R extends JpaRepository<E, Integer>> {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(entity));
     } */
 
-    public ResponseEntity<String> update(Integer id, E entity) {
+    public ResponseEntity< Map<String, String>> update(Integer id, E entity) {
         Optional<E> optionalEntity = repository.findById(id);
+        Map<String, String> response = new HashMap<>();
         
         if (optionalEntity.isPresent()) {
             E existingEntity = optionalEntity.get();
             BeanUtils.copyProperties(entity, existingEntity);//copia las propiedades de (A en B)
            repository.save(existingEntity);
-            return ResponseEntity.status(HttpStatus.OK).body("modificado exitosamente");
-        }
-        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("No se ha podido modificar");
+           response.put("message", "modificado exitosamente");
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } 
+        response.put("message", "No se ha podido modificar");
+        return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(response);
     }
 
-    public ResponseEntity<String> delete(Integer id) {
-        repository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Eliminado exitosamente");
+    public ResponseEntity<Map<String, String>> delete(Integer id) {
+         Map<String, String> response = new HashMap<>();
+        try{
+            repository.deleteById(id);
+            response.put("message", "Borrado correctamente");
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
+        catch(Exception exception){
+            response.put("message", "error al borrar: " + exception.getMessage());
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        }
     }
 }

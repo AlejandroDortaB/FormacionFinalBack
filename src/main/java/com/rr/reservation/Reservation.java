@@ -24,7 +24,6 @@ public class Reservation {
 	private Integer numberPeople;
 	
 	@ManyToOne
-	@JsonIgnore
 	private Restaurant restaurant;
 	
 	@ManyToOne
