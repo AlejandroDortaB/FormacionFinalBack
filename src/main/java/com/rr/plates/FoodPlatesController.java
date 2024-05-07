@@ -1,4 +1,4 @@
-package com.rr.menu;
+package com.rr.plates;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,16 +12,15 @@ import com.rr.base.BaseController;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("menu")
-public class MenuController extends BaseController<Menu, MenuServices> {
+@RequestMapping("foodPlates")
+public class FoodPlatesController extends BaseController<FoodPlates, FoodPlatesServices>{
 
-	public MenuController(MenuServices service) {
-		super(service);
-	}
+    public FoodPlatesController(FoodPlatesServices service) {
+        super(service);
+    }
 
-	@PostMapping
-    public ResponseEntity<Menu> create(@RequestBody MenuRequest entity) {
-		
+    @PostMapping
+    public ResponseEntity<FoodPlates> create(@RequestBody FoodPlatesRequest entity) {
         return service.create(entity);
     }
 
