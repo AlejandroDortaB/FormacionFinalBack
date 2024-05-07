@@ -49,6 +49,8 @@ public class SecurityConfig {
 		return http.csrf(csrf->csrf.disable()).//deshabilitamos el csrf que es la seguridad de spring por defecto 
 				authorizeHttpRequests(authRequest -> authRequest.requestMatchers("/auth/**")
 				.permitAll() //permite que todas las rutas /auth/** tengan todos los permisos
+				.requestMatchers("/swagger-ui/**").permitAll()
+				.requestMatchers("/api-docs/**").permitAll()
 				.anyRequest()
 				.authenticated())//Las demas deben autentificarse
 				.sessionManagement(sessionManager->
