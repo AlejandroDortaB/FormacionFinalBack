@@ -12,7 +12,7 @@ import com.rr.base.BaseController;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("foodPlates")
+@RequestMapping("foodplate")
 public class FoodPlatesController extends BaseController<FoodPlates, FoodPlatesServices>{
 
     public FoodPlatesController(FoodPlatesServices service) {
