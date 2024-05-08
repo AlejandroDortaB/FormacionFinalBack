@@ -2,23 +2,17 @@ package com.rr.menu;
 
 import java.util.List;
 
-import com.rr.plates.FoodPlatesRepository;
-
 public class MenuRequest {
     private Integer id;
     private String name;
-	private List<Integer> foodPlatesIds;
     private Integer restaurant;
 
-    FoodPlatesRepository foodPlatesRepository;
 
     
-    public MenuRequest(Integer id, String name, List<Integer> foodPlatesIds, Integer restaurant,FoodPlatesRepository foodPlatesRepository) {
+    public MenuRequest(Integer id, String name, Integer restaurant) {
         this.id = id;
         this.name = name;
-        this.foodPlatesIds = foodPlatesIds;
         this.restaurant = restaurant;
-        this.foodPlatesRepository = foodPlatesRepository;
     }
     public Integer getId() {
         return id;
@@ -31,12 +25,6 @@ public class MenuRequest {
     }
     public void setName(String name) {
         this.name = name;
-    }
-    public List<Integer> getFoodPlatesId() {
-        return foodPlatesIds;
-    }
-    public void setFoodPlates(List<Integer> foodPlatesIds) {
-        this.foodPlatesIds = foodPlatesIds;
     }
     public Integer getRestaurant() {
         return restaurant;

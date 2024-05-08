@@ -35,10 +35,10 @@ public abstract class BaseController<E, S extends BaseService<E, ?>> {
         return service.create(entity);
     } */
 
-    @PutMapping("/{id}")
+    /* @PutMapping("/{id}")
     public ResponseEntity< Map<String, String>> update(@PathVariable Integer id, @RequestBody E entity) {
         return service.update(id, entity);
-    }
+    } */
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Map<String, String>> delete(@PathVariable Integer id) {

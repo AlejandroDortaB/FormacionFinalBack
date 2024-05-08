@@ -31,7 +31,7 @@ public abstract class BaseService<E, R extends JpaRepository<E, Integer>> {
         return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(entity));
     } */
 
-    public ResponseEntity< Map<String, String>> update(Integer id, E entity) {
+    /* public ResponseEntity< Map<String, String>> update(Integer id, E entity) {
         Optional<E> optionalEntity = repository.findById(id);
         Map<String, String> response = new HashMap<>();
         
@@ -45,7 +45,7 @@ public abstract class BaseService<E, R extends JpaRepository<E, Integer>> {
         } 
         response.put("message", "No se ha podido modificar");
         return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(response);
-    }
+    } */
 
     public ResponseEntity<Map<String, String>> delete(Integer id) {
          Map<String, String> response = new HashMap<>();
