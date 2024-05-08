@@ -1,6 +1,7 @@
 package com.rr.restaurant;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.rr.base.BaseController;
+import com.rr.reservation.Reservation;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -33,5 +39,15 @@ public class RestaurantController  extends BaseController<Restaurant, Restaurant
     public ResponseEntity<Restaurant> update(@PathVariable Integer id, @RequestBody Restaurant request) {
         return service.update(id, request);
     }
+    @GetMapping("/{id}/reservation")
+    public ResponseEntity<List<Reservation>> getTotalReservations(@PathVariable Integer id) {
+        return service.getTotalReservations(id);
+    }
+
+    @GetMapping("/{id}/reservation/group-date")
+    public ResponseEntity<List<Object[]>> getTotalReservationsByRestaurantId(@PathVariable Integer id) {
+        return service.getTotalReservationsByRestaurantId(id);
+    }
+    
 
 }
