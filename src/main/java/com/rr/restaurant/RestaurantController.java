@@ -40,14 +40,14 @@ public class RestaurantController  extends BaseController<Restaurant, Restaurant
         return service.update(id, request);
     }
     @GetMapping("/{id}/reservation")
-    public ResponseEntity<List<Reservation>> getTotalReservations(@PathVariable Integer id) {
+    public ResponseEntity<Map<String, List<Reservation>>> getTotalReservations(@PathVariable Integer id) {
         return service.getTotalReservations(id);
     }
 
-    @GetMapping("/{id}/reservation/group-date")
+   /*  @GetMapping("/{id}/reservation/group-date")
     public ResponseEntity<List<Object[]>> getTotalReservationsByRestaurantId(@PathVariable Integer id) {
         return service.getTotalReservationsByRestaurantId(id);
-    }
+    } */
     
 
 }

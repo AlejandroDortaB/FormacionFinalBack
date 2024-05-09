@@ -1,6 +1,11 @@
 package com.rr.restaurant;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
@@ -36,14 +41,26 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantReposit
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(null);
     }
 
-	public ResponseEntity<List<Object[]>> getTotalReservationsByRestaurantId(Integer restaurantId){
+	/* public ResponseEntity<List<Object[]>> getTotalReservationsByRestaurantId(Integer restaurantId){
 		List<Object[]> results= this.reservationRepository.findTotalReservationsByRestaurantId(restaurantId);
 		System.out.println(results);
 		return ResponseEntity.status(HttpStatus.OK).body(results);
-	}
+	} */
 
-	public ResponseEntity<List<Reservation>> getTotalReservations(Integer id) {
-		return ResponseEntity.status(HttpStatus.OK).body(this.reservationRepository.findByRestaurantId(id));
+	public ResponseEntity<Map<String, List<Reservation>>> getTotalReservations(Integer id) {
+		List<Reservation> reservations = this.reservationRepository.findByRestaurantId(id);
+		 Map<String, List<Reservation>> reservationsByDate = new HashMap<>();
+		  SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		  for (Reservation reservation : reservations) {
+            Date date = reservation.getDate();
+            String dateString = dateFormat.format(date);
+            if (!reservationsByDate.containsKey(dateString)) {
+                reservationsByDate.put(dateString, new ArrayList<>());
+            }
+            reservationsByDate.get(dateString).add(reservation);
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(reservationsByDate);
 	}
 
 }
