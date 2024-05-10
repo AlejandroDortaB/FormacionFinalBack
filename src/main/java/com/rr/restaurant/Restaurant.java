@@ -22,6 +22,7 @@ public class Restaurant {
 	private Integer capacity;
 	private String description;
 	private Integer imgIndex;
+	private String imageUrl; 
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
 	private List<Menu> menus;
@@ -99,6 +100,14 @@ public class Restaurant {
 
 	public void setImgIndex(Integer imgIndex) {
 		this.imgIndex = imgIndex;
+	}
+	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 	
 }

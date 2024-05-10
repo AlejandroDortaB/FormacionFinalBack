@@ -51,6 +51,7 @@ public class SecurityConfig {
 				.permitAll() //permite que todas las rutas /auth/** tengan todos los permisos
 				.requestMatchers("/swagger-ui/**").permitAll()
 				.requestMatchers("/api-docs/**").permitAll()
+				.requestMatchers("/images/**").permitAll()
 				.anyRequest()
 				.authenticated())//Las demas deben autentificarse
 				.sessionManagement(sessionManager->

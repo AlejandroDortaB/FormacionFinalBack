@@ -63,4 +63,13 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantReposit
         return ResponseEntity.status(HttpStatus.OK).body(reservationsByDate);
 	}
 
+	public Restaurant updateRestaurantImage(Integer restaurantId, String imageUrl) {
+        Restaurant restaurant = repository.findById(restaurantId)
+                .orElseThrow(() -> new RuntimeException("Restaurant not found with id: " + restaurantId));
+        
+        restaurant.setImageUrl(imageUrl);
+        
+        return repository.save(restaurant);
+    }
+
 }
