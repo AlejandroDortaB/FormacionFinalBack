@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.rr.jwt.JwtService;
+import com.rr.role.Role;
+import com.rr.role.RoleRepository;
 import com.rr.user.User;
 import com.rr.user.UserRepository;
 
@@ -23,10 +25,14 @@ public class AuthService {
 	private UserRepository userRepository;
 	@Autowired
 	private JwtService jwtservice;
+
+	@Autowired
+	private RoleRepository roleRepository;
 	
-	public AuthService(UserRepository userRepository,JwtService jwtservice) {
+	public AuthService(UserRepository userRepository,JwtService jwtservice,RoleRepository roleRepository) {
 		this.userRepository=userRepository;
 		this.jwtservice = jwtservice;
+		this.roleRepository=roleRepository;
 	}
 	
 	
@@ -39,8 +45,9 @@ public class AuthService {
 	        result.put("error", "El nombre de usuario ya está en uso");
 	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
 	    }
-	    
-			User user =  new User(body.getUsername(),body.getPassword());
+	    	Role role= this.roleRepository.findById(1).get();
+			User user =  new User(body.getUsername(),body.getPassword(),role);
+			
 			
 			if(user != null) {
 				user.hashPassword();

@@ -32,6 +32,7 @@ public class JwtService {
 	//Generamos el token
 	private String getToken(Map<String,Object> extraClaims,User user) {
 		extraClaims.put("id",user.getId());
+		extraClaims.put("role",user.getRole().getId());
 		return Jwts.builder().setClaims(extraClaims).setSubject(user.getUsername())
 				.setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis()+1000*60*60*24))

@@ -10,11 +10,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rr.reservation.Reservation;
+import com.rr.role.Role;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 
@@ -30,6 +32,9 @@ public class User implements UserDetails{
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
 	@JsonManagedReference
 	private List<Reservation> reservations;
+
+	@ManyToOne
+	private Role role;
 	
 	
 	public User() {}
@@ -44,11 +49,29 @@ public class User implements UserDetails{
 		this.username=username;
 		this.password=password;
 	}
+
+	
+	public User(String username, String password, Role role) {
+		this.username = username;
+		this.password = password;
+		this.role = role;
+	}
+
+
 	public User(String username, String password, List<Reservation> reservations) {
 		this.username = username;
 		this.password = password;
 		this.reservations = reservations;
 	}
+
+	public User(Integer id, String username, String password, List<Reservation> reservations, Role role) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.reservations = reservations;
+		this.role = role;
+	}
+
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -100,6 +123,31 @@ public class User implements UserDetails{
 
 	public Integer getId() {
 		return id;
+	}
+
+
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+
+	public void setRole(Role role) {
+		this.role = role;
 	}
 		
 	
