@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.rr.conversation.Conversation;
 import com.rr.reservation.Reservation;
 import com.rr.role.Role;
 
@@ -16,6 +18,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -35,6 +38,10 @@ public class User implements UserDetails{
 
 	@ManyToOne
 	private Role role;
+
+	@ManyToMany
+	@JsonIgnore
+	private List<Conversation> conversations;
 	
 	
 	public User() {}
@@ -70,6 +77,17 @@ public class User implements UserDetails{
 		this.password = password;
 		this.reservations = reservations;
 		this.role = role;
+	}
+
+
+	public User(Integer id, String username, String password, List<Reservation> reservations, Role role,
+			List<Conversation> conversations) {
+		this.id = id;
+		this.username = username;
+		this.password = password;
+		this.reservations = reservations;
+		this.role = role;
+		this.conversations = conversations;
 	}
 
 
@@ -148,6 +166,16 @@ public class User implements UserDetails{
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+
+	public List<Conversation> getConversations() {
+		return conversations;
+	}
+
+
+	public void setConversations(List<Conversation> conversations) {
+		this.conversations = conversations;
 	}
 		
 	
