@@ -5,7 +5,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
-@Controller
+/* @Controller
 public class WebSocketController {
     @MessageMapping("/chat/{roomId}")
     @SendTo("/topic/{roomId}")
@@ -14,5 +14,5 @@ public class WebSocketController {
         System.out.println(message.getMessage());
         return new ChatMessage(message.getMessage(), message.getUser());
     }
-}
+} */
 

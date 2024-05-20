@@ -22,14 +22,14 @@ public class MessageService extends BaseService<message, MessageRepository>{
         this.conversationRepository=conversationRepository;
     }
 
-     public ResponseEntity<message> create(MessageRequest request) {
+     public message create(MessageRequest request) {
         Optional<Conversation> conversationOpt=  this.conversationRepository.findById(request.getCoversationId());
        if(conversationOpt.isPresent()){
         Conversation conversation = conversationOpt.get();
         message message = new message(request.getText(),request.isView(),request.getEmiterId(),conversation);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(message));
+        repository.save(message);
+        return message;
        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        return null;
     }
 }

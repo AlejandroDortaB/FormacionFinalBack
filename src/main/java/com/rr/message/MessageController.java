@@ -1,6 +1,8 @@
 package com.rr.message;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,7 +21,13 @@ public class MessageController extends BaseController<message, MessageService> {
     }
 
     @PostMapping
-    public ResponseEntity<message> create(@RequestBody MessageRequest request) {
+    public message create(@RequestBody MessageRequest request) {
         return service.create(request);
+    }
+
+    @MessageMapping("/chat/{roomId}")
+    @SendTo("/topic/{roomId}")
+    public message chat(@DestinationVariable String roomId, MessageRequest message) {
+        return service.create(message);
     }
 }
