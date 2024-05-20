@@ -52,6 +52,8 @@ public class SecurityConfig {
 				.requestMatchers("/swagger-ui/**").permitAll()
 				.requestMatchers("/api-docs/**").permitAll()
 				.requestMatchers("/images/**").permitAll()
+				.requestMatchers("/chat-socket/**").permitAll()
+				.requestMatchers("/app/**").permitAll()
 				.anyRequest()
 				.authenticated())//Las demas deben autentificarse
 				.sessionManagement(sessionManager->
@@ -59,7 +61,7 @@ public class SecurityConfig {
                   .sessionCreationPolicy(SessionCreationPolicy.STATELESS)) //ponemos las politicas de creaciones que no guarden estados
              .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
             .build();// aplicamos los filtros
-            
+     
     }
 	
 	
