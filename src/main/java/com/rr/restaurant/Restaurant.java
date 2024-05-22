@@ -24,7 +24,8 @@ public class Restaurant {
 	private Integer capacity;
 	private String description;
 	private String imageUrl; 
-	
+	private boolean enable;
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
 	private List<Menu> menus;
 	
@@ -48,11 +49,12 @@ public class Restaurant {
 
 	
 	
-	public Restaurant(String name, Integer capacity, String description, User user) {
+	public Restaurant(String name, Integer capacity, String description, User user,boolean enable) {
 		this.name = name;
 		this.capacity = capacity;
 		this.description = description;
 		this.user = user;
+		this.enable=enable;
 	}
 
 	public Integer getId() {
@@ -114,5 +116,11 @@ public class Restaurant {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
 }

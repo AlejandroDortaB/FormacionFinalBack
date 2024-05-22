@@ -5,12 +5,14 @@ public class RestaurantRequest {
 	private Integer capacity;
 	private String description;
     private Integer userId;
+    private boolean enable;
 
-    public RestaurantRequest(String name, Integer capacity, String description, Integer userId) {
+    public RestaurantRequest(String name, Integer capacity, String description, Integer userId,boolean enable) {
         this.name = name;
         this.capacity = capacity;
         this.description = description;
         this.userId = userId;
+        this.enable = enable;
     }
     public String getName() {
         return name;
@@ -37,6 +39,13 @@ public class RestaurantRequest {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
+    public boolean isEnable() {
+        return enable;
+    }
+    public void setEnable(boolean enable) {
+        this.enable = enable;
+    }
 
+    
     
 }

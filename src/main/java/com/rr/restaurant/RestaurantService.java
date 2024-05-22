@@ -33,7 +33,7 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantReposit
 	public ResponseEntity<Restaurant> create(RestaurantRequest request) {
 		Optional<User> userOpt= this.userRepository.findById(request.getUserId());
 		if(userOpt.isPresent()){
-			Restaurant restaurant= new Restaurant(request.getName(), request.getCapacity(),request.getDescription(),userOpt.get());
+			Restaurant restaurant= new Restaurant(request.getName(), request.getCapacity(),request.getDescription(),userOpt.get(),request.isEnable());
 			return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(restaurant));
 		}
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(repository.save(null));
