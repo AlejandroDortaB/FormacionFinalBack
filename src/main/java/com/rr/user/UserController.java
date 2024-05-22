@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.rr.base.BaseController;
 import com.rr.conversation.Conversation;
 import com.rr.reservation.Reservation;
+import com.rr.restaurant.Restaurant;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -28,14 +29,21 @@ public class UserController extends BaseController<User, UserService> {
         return service.getUserReservation(id);
     }
 
+    @GetMapping("{userId}/conversations")
+    public ResponseEntity<List<Conversation>> getUserConversations(@PathVariable Integer userId) {
+        return service.getUserConversations(userId);
+    }
+
+    @GetMapping("{userId}/restaurant")
+    public ResponseEntity<List<Restaurant>> getUserRestaurants(@PathVariable Integer userId) {
+        return service.getUserRestaurants(userId);
+    }
+
 	@PutMapping("{idUser}/role/{roleId}")
     public ResponseEntity<User> modifyUserRole(@PathVariable Integer idUser, @PathVariable Integer roleId ) {
         return service.modifyUserRole(idUser,roleId);
     }
 
-    @GetMapping("{userId}/conversations")
-    public ResponseEntity<List<Conversation>> getUserConversations(@PathVariable Integer userId) {
-        return service.getUserConversations(userId);
-    }
+    
 
 }

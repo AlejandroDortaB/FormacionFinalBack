@@ -3,14 +3,16 @@ package com.rr.restaurant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import com.rr.menu.Menu;
 import com.rr.reservation.Reservation;
+import com.rr.user.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
 @Entity
@@ -21,7 +23,6 @@ public class Restaurant {
 	private String name;
 	private Integer capacity;
 	private String description;
-	private Integer imgIndex;
 	private String imageUrl; 
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
@@ -30,6 +31,9 @@ public class Restaurant {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "restaurant")
 	@JsonIgnore
 	private List<Reservation> reservations;
+
+	@ManyToOne
+	private User user;
 	
 	public Restaurant() {}
 
@@ -37,11 +41,20 @@ public class Restaurant {
         this.id = id;
     }
 	
-	public Restaurant(Integer id,String name,Integer imgIndex) {
+	public Restaurant(Integer id,String name) {
 		this.id=id;
 		this.name= name;
 	}
+
 	
+	
+	public Restaurant(String name, Integer capacity, String description, User user) {
+		this.name = name;
+		this.capacity = capacity;
+		this.description = description;
+		this.user = user;
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -92,14 +105,6 @@ public class Restaurant {
 		this.description = description;
 		this.menus = menus;
 		this.reservations = reservations;
-	}
-
-	public Integer getImgIndex() {
-		return imgIndex;
-	}
-
-	public void setImgIndex(Integer imgIndex) {
-		this.imgIndex = imgIndex;
 	}
 	
 	public String getImageUrl() {

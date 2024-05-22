@@ -15,19 +15,29 @@ import org.springframework.stereotype.Service;
 import com.rr.base.BaseService;
 import com.rr.reservation.Reservation;
 import com.rr.reservation.ReservationRepository;
+import com.rr.user.User;
+import com.rr.user.UserRepository;
 
 @Service
 public class RestaurantService extends BaseService<Restaurant, RestaurantRepository>  {
 
 	ReservationRepository reservationRepository;
+	UserRepository userRepository;
 
-	public RestaurantService(RestaurantRepository repository,ReservationRepository reservationRepository) {
+	public RestaurantService(RestaurantRepository repository,ReservationRepository reservationRepository,UserRepository userRepository) {
 		super(repository);
 		this.reservationRepository = reservationRepository;
+		this.userRepository=userRepository;
 	}
 
-	public ResponseEntity<Restaurant> create(Restaurant entity) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(entity));
+	public ResponseEntity<Restaurant> create(RestaurantRequest request) {
+		Optional<User> userOpt= this.userRepository.findById(request.getUserId());
+		if(userOpt.isPresent()){
+			Restaurant restaurant= new Restaurant(request.getName(), request.getCapacity(),request.getDescription(),userOpt.get());
+			return ResponseEntity.status(HttpStatus.CREATED).body(repository.save(restaurant));
+		}
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(repository.save(null));
+        
     }
 
     public ResponseEntity<Restaurant> update(Integer id, Restaurant request) {
@@ -40,12 +50,6 @@ public class RestaurantService extends BaseService<Restaurant, RestaurantReposit
 		}
 		return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(null);
     }
-
-	/* public ResponseEntity<List<Object[]>> getTotalReservationsByRestaurantId(Integer restaurantId){
-		List<Object[]> results= this.reservationRepository.findTotalReservationsByRestaurantId(restaurantId);
-		System.out.println(results);
-		return ResponseEntity.status(HttpStatus.OK).body(results);
-	} */
 
 	public ResponseEntity<Map<String, List<Reservation>>> getTotalReservations(Integer id) {
 		List<Reservation> reservations = this.reservationRepository.findByRestaurantId(id);

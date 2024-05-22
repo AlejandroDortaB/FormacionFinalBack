@@ -12,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.rr.conversation.Conversation;
 import com.rr.reservation.Reservation;
+import com.rr.restaurant.Restaurant;
 import com.rr.role.Role;
 
 import jakarta.persistence.CascadeType;
@@ -42,6 +43,10 @@ public class User implements UserDetails{
 	@ManyToMany
 	@JsonIgnore
 	private List<Conversation> conversations;
+
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+	@JsonManagedReference
+	private List<Restaurant> restaurants;
 	
 	
 	public User() {}

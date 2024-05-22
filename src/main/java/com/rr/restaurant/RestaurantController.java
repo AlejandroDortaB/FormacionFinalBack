@@ -36,8 +36,8 @@ public class RestaurantController  extends BaseController<Restaurant, Restaurant
 	}
 
 	@PostMapping
-    public ResponseEntity<Restaurant> create(@RequestBody Restaurant entity) {
-        return service.create(entity);
+    public ResponseEntity<Restaurant> create(@RequestBody RestaurantRequest  request) {
+        return service.create(request);
     }
 
 	@PutMapping("/{id}")

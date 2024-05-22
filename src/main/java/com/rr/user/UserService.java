@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import com.rr.base.BaseService;
 import com.rr.reservation.Reservation;
 import com.rr.reservation.ReservationRepository;
+import com.rr.restaurant.Restaurant;
+import com.rr.restaurant.RestaurantRepository;
 import com.rr.role.Role;
 import com.rr.role.RoleRepository;
 import com.rr.conversation.Conversation;
@@ -20,11 +22,14 @@ public class UserService extends BaseService<User, UserRepository> {
 
 	private ReservationRepository reservationRepository;
 	private RoleRepository roleRepository;
+	private RestaurantRepository restaurantRespository;
 
-	public UserService(UserRepository repository,ReservationRepository reservationRepository,RoleRepository roleRepository) {
+	public UserService(UserRepository repository,ReservationRepository reservationRepository,
+	RoleRepository roleRepository,RestaurantRepository restaurantRespository) {
 		super(repository);
 		this.reservationRepository=reservationRepository;
 		this.roleRepository=roleRepository;
+		this.restaurantRespository=restaurantRespository;
 	}
 
     public ResponseEntity<List<Reservation>> getUserReservation(Integer userId) {
@@ -53,6 +58,10 @@ public class UserService extends BaseService<User, UserRepository> {
 			return ResponseEntity.status(HttpStatus.OK).body(user.getConversations());
 		}
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+    }
+
+    public ResponseEntity<List<Restaurant>> getUserRestaurants(Integer userId) {
+		return ResponseEntity.status(HttpStatus.OK).body(restaurantRespository.findByUserId(userId));
     }
 
 
